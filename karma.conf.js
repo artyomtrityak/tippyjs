@@ -52,10 +52,24 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
 
+    customLaunchers: {
+      NoSandboxHeadlessChrome: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--no-sandbox',
+          // See https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+          '--headless',
+          '--disable-gpu',
+          // Without a remote debugging port, Google Chrome exits immediately.
+          ' --remote-debugging-port=9222',
+        ]
+      }
+    },
+
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Firefox'],
+    browsers: ['Firefox', 'NoSandboxHeadlessChrome'],
 
 
     // Continuous Integration mode
